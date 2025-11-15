@@ -1,0 +1,44 @@
+config:
+  runTime: "dockerCompose"
+  version: "v1.0"
+  framework: "node"
+  buildCommand: "docker-compose build"
+  runCommand: "docker-compose up -d"
+  icon: "https://cdn-icons-png.flaticon.com/512/3176/3176369.png"
+  screenshot: "screenshot.png"
+
+ports:
+  - protocol: "https"
+    targetProtocol: "http"
+    listeningPort: "443"
+    targetPort: "3000"
+    targetIP: "172.17.0.1"
+    public: true
+    path: "/"
+    isAuth: false
+
+environments:
+  - key: "ADMIN_EMAIL"
+    value: "admin@example.com"
+  - key: "DOMAIN"
+    value: "[CI_CD_DOMAIN]"
+  - key: "DATABASE_URL"
+    value: "mysql://root:[MYSQL_ROOT_PASSWORD]@172.17.0.1:3306/maintenance_tracker"
+  - key: "JWT_SECRET"
+    value: "random_password"
+  - key: "MYSQL_ROOT_PASSWORD"
+    value: "random_password"
+  - key: "MYSQL_DATABASE"
+    value: "maintenance_tracker"
+  - key: "MYSQL_USER"
+    value: "appuser"
+  - key: "MYSQL_PASSWORD"
+    value: "random_password"
+  - key: "NODE_ENV"
+    value: "production"
+
+webUI:
+  - url: "https://[CI_CD_DOMAIN]"
+    label: "Machinery Maintenance Tracker"
+    login: "admin@example.com"
+    password: "[ADMIN_PASSWORD]"
